@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeFlock MPLS | Stop Flock Surveillance in Minneapolis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#E8190C; --red-dim:#8a0e07; --cream:#F0EBE0; --dark:#0a0a0a; --mid:#1a1a1a; --border:#2a2a2a; --text-muted:#777; --green:#00FF41; }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--dark);color:var(--cream);font-family:'IBM Plex Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:crosshair;}
+  body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px);pointer-events:none;z-index:9999;}
+  body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:0.4;}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,10,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .nav-brand{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.15em;color:var(--red);text-transform:uppercase;text-decoration:none;}
+  .nav-links{display:flex;gap:1.25rem;list-style:none;}
+  .nav-links a{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--cream);}
+  @media(max-width:600px){.nav-links{display:none;}}
+  header{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:4rem 2rem;overflow:hidden;border-bottom:1px solid var(--border);}
+  .surveillance-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,25,12,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(232,25,12,0.04) 1px,transparent 1px);background-size:60px 60px;animation:gridPulse 4s ease-in-out infinite;}
+  @keyframes gridPulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
+  .ticker{position:absolute;top:0;left:0;right:0;background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.7rem;font-weight:600;letter-spacing:0.15em;padding:0.4rem 0;overflow:hidden;white-space:nowrap;}
+  .ticker-inner{display:inline-block;animation:ticker 30s linear infinite;}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+  .header-content{position:relative;max-width:1100px;margin:0 auto;width:100%;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;}
+  .eyebrow::before{content:'';display:inline-block;width:2rem;height:1px;background:var(--red);}
+  .hero-headline{font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,12vw,11rem);line-height:0.92;letter-spacing:0.01em;color:var(--cream);margin-bottom:0.5rem;}
+  .hero-headline .red{color:var(--red);}
+  .plate-display{font-family:'IBM Plex Mono',monospace;font-size:clamp(1.2rem,3vw,2.2rem);color:var(--green);letter-spacing:0.15em;margin:1.5rem 0;opacity:0;animation:fadeIn 1s ease 0.8s forwards;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+  .plate-display .blink{animation:blink 1.2s step-end infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+  @keyframes fadeIn{to{opacity:1;}}
+  .hero-sub{font-size:clamp(1rem,2vw,1.25rem);line-height:1.7;max-width:600px;color:#bbb;margin-top:2rem;opacity:0;animation:fadeIn 1s ease 1.2s forwards;}
+  .hero-cta{margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeIn 1s ease 1.6s forwards;}
+  .btn-primary{background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2rem;text-decoration:none;border:2px solid var(--red);transition:all 0.2s;display:inline-block;}
+  .btn-primary:hover{background:transparent;color:var(--red);}
+  .btn-ghost{background:transparent;color:var(--cream);font-family:'IBM Plex Mono',monospace;font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;padding:1rem 2rem;text-decoration:none;border:2px solid var(--border);transition:all 0.2s;display:inline-block;}
+  .btn-ghost:hover{border-color:var(--cream);}
+  .camera-count{position:absolute;right:2rem;top:50%;transform:translateY(-50%);text-align:right;display:none;}
+  @media(min-width:900px){.camera-count{display:block;}}
+  .camera-count .num{font-family:'Bebas Neue',sans-serif;font-size:8rem;color:var(--red);line-height:1;opacity:0.15;}
+  .camera-count .label{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--text-muted);text-transform:uppercase;}
+  section{padding:6rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.3em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+  .section-label::after{content:'';flex:1;max-width:3rem;height:1px;background:var(--red);}
+  .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,5rem);line-height:1;color:var(--cream);margin-bottom:3rem;}
+  #what{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .what-grid{display:grid;grid-template-columns:1fr;gap:4rem;align-items:center;}
+  @media(min-width:768px){.what-grid{grid-template-columns:1fr 1fr;}}
+  .what-text p{line-height:1.9;color:#ccc;margin-bottom:1.5rem;font-size:1.05rem;}
+  .what-text strong{color:var(--cream);font-weight:700;}
+  .camera-diagram{background:#0f0f0f;border:1px solid var(--border);padding:2rem;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;color:var(--green);line-height:2;position:relative;overflow:hidden;}
+  .camera-diagram::before{content:'● REC';position:absolute;top:0.75rem;right:0.75rem;color:var(--red);font-size:0.65rem;letter-spacing:0.15em;animation:blink 2s step-end infinite;}
+  .cam-line{display:flex;gap:0.5rem;white-space:nowrap;overflow:hidden;}
+  .cam-key{color:var(--text-muted);flex-shrink:0;}
+  .cam-val{color:var(--green);overflow:hidden;text-overflow:ellipsis;}
+  .cam-highlight{color:#fff;}
+  .cam-alert{color:var(--red);}
+  #dangers{background:var(--dark);}
+  .dangers-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);margin-top:1rem;}
+  @media(min-width:600px){.dangers-grid{grid-template-columns:1fr 1fr;}}
+  @media(min-width:900px){.dangers-grid{grid-template-columns:1fr 1fr 1fr;}}
+  .danger-card{background:var(--dark);padding:2.5rem 2rem;transition:background 0.3s;position:relative;overflow:hidden;}
+  .danger-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--red);transition:height 0.4s ease;}
+  .danger-card:hover::before{height:100%;}
+  .danger-card:hover{background:#111;}
+  .danger-num{font-family:'Bebas Neue',sans-serif;font-size:4rem;color:var(--border);line-height:1;margin-bottom:1rem;transition:color 0.3s;}
+  .danger-card:hover .danger-num{color:var(--red-dim);}
+  .danger-title{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--cream);margin-bottom:1rem;}
+  .danger-card p{font-size:0.92rem;line-height:1.8;color:#999;}
+  #stats{background:var(--red);padding:5rem 2rem;}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;text-align:center;}
+  @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:440px){.stats-grid{grid-template-columns:1fr;}}
+  .stat-num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,5.5rem);color:#fff;line-height:1;}
+  .stat-label{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-top:0.5rem;line-height:1.6;}
+  .stat-source{font-size:0.6rem;color:rgba(255,255,255,0.4);margin-top:0.4rem;}
+  #targeted{background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+  .targeted-intro{max-width:700px;font-size:1.1rem;line-height:1.9;color:#bbb;margin-bottom:3rem;}
+  .community-list{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+  @media(max-width:800px){.community-list{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:500px){.community-list{grid-template-columns:1fr;}}
+  .community-item{border:1px solid var(--border);padding:1.5rem;position:relative;background:#0f0f0f;}
+  .community-item h3{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--red);margin-bottom:0.75rem;}
+  .community-item p{font-size:0.9rem;line-height:1.7;color:#999;}
+  #action{background:var(--dark);}
+  .action-intro{max-width:700px;font-size:1.1rem;line-height:1.9;color:#bbb;margin-bottom:3rem;}
+  .council-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:4rem;}
+  .council-card{background:var(--dark);padding:1.5rem;transition:background 0.2s;}
+  .council-card:hover{background:#111;}
+  .ward{font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--text-muted);text-transform:uppercase;margin-bottom:0.5rem;}
+  .council-name{font-family:'IBM Plex Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--cream);margin-bottom:0.4rem;}
+  .council-email{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--red);text-decoration:none;letter-spacing:0.02em;word-break:break-all;}
+  .council-email:hover{text-decoration:underline;}
+  .email-template{background:#0f0f0f;border:1px solid var(--border);border-left:3px solid var(--red);padding:2.5rem;font-family:'IBM Plex Mono',monospace;font-size:0.82rem;line-height:2;color:#bbb;white-space:pre-wrap;position:relative;}
+  .copy-btn{position:absolute;top:1rem;right:1rem;background:var(--border);color:var(--cream);border:none;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1rem;cursor:pointer;transition:background 0.2s;}
+  .copy-btn:hover{background:var(--red);}
+  .mayor-box{border:1px solid var(--border);padding:2.5rem;background:#0f0f0f;margin-top:3rem;display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap;}
+  .mayor-info h3{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream);margin-bottom:0.25rem;}
+  .mayor-info .title{font-family:'IBM Plex Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;color:var(--text-muted);text-transform:uppercase;margin-bottom:1rem;}
+  .mayor-info a{display:block;font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--red);text-decoration:none;margin-bottom:0.35rem;}
+  .mayor-info a:hover{text-decoration:underline;}
+  sup a{color:var(--red);font-family:'IBM Plex Mono',monospace;font-size:0.6rem;text-decoration:none;vertical-align:super;margin-left:2px;}
+  sup a:hover{text-decoration:underline;}
+  #sources{background:#000;border-top:1px solid var(--border);padding:4rem 2rem;}
+  .sources-list{list-style:none;counter-reset:source-counter;}
+  .sources-list li{counter-increment:source-counter;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--text-muted);padding:0.6rem 0;border-bottom:1px solid #1a1a1a;display:flex;gap:1rem;line-height:1.6;}
+  .sources-list li::before{content:'[' counter(source-counter) ']';color:var(--red);flex-shrink:0;}
+  .sources-list a{color:var(--text-muted);text-decoration:underline;word-break:break-all;}
+  .sources-list a:hover{color:var(--cream);}
+  .alert-box{background:rgba(232,25,12,0.08);border:1px solid rgba(232,25,12,0.3);border-left:4px solid var(--red);padding:1.5rem 2rem;margin:2rem 0;font-size:0.92rem;line-height:1.8;color:#ccc;}
+  .alert-box strong{color:var(--cream);}
+  footer{background:#000;border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;color:var(--text-muted);letter-spacing:0.05em;}
+  footer p{margin-bottom:0.5rem;}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  /* NEWS TICKER */
+  @keyframes tickerScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-news-item {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: #ccc;
+    text-decoration: none;
+    padding: 0 2rem 0 0;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+  }
+  .ticker-news-item:hover { color: #fff; }
+  .ticker-news-item:hover .ticker-src { background: #fff; color: #000; }
+  .ticker-src {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--red);
+    color: #fff;
+    padding: 0.15rem 0.4rem;
+    margin-left: 0.3rem;
+    transition: background 0.2s, color 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .ticker-sep {
+    color: #444;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:0.9rem 2rem;">
+    <a href="#" class="nav-brand">deflockmpls.com</a>
+    <ul class="nav-links">
+      <li><a href="#what">What Is Flock</a></li>
+      <li><a href="#dangers">The Dangers</a></li>
+      <li><a href="#targeted">Who's Targeted</a></li>
+      <li><a href="#action">Take Action</a></li>
+      <li><a href="#news">In The News</a></li>
+      <li><a href="#sources">Sources</a></li>
+    </ul>
+  </div>
+  <!-- INTEGRATED NEWS TICKER -->
+  <div style="border-top:1px solid var(--border);overflow:hidden;background:#000;">
+    <div style="display:flex;align-items:stretch;height:1.9rem;">
+      <div style="background:var(--red);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:0.55rem;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;padding:0 0.9rem;display:flex;align-items:center;white-space:nowrap;flex-shrink:0;gap:0.4rem;">
+        <span style="display:inline-block;width:5px;height:5px;background:#fff;border-radius:50%;animation:blink 1.2s step-end infinite;"></span>
+        LATEST
+      </div>
+      <div style="overflow:hidden;flex:1;position:relative;">
+        <div class="ticker-news-track" style="display:inline-flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 68s linear infinite;" onmouseenter="this.style.animationPlayState='paused'" onmouseleave="this.style.animationPlayState='running'">
+          <a href="https://unicornriot.ninja/2026/alprs-and-minneapolis-growing-discriminatory-surveillance-dragnet/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;MINNEAPOLIS: ALPR cameras concentrated in Black neighborhoods &mdash; not where crime is highest&nbsp;<span class="ticker-src">Unicorn Riot</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/a-texas-cop-searched-license-plate-cameras-nationwide-for-a-woman-who-got-an-abortion/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Texas cop searched 83,000 Flock cameras to find woman who had abortion&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://ij.org/police-have-reportedly-used-license-plate-readers-to-stalk-romantic-interests-at-least-14-times-in-recent-years/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Officers used Flock to stalk romantic partners in 14 documented cases&nbsp;<span class="ticker-src">Institute for Justice</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://stateofsurveillance.org/news/flock-safety-cameras-exposed-no-password-2026/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;67 Flock cameras streaming live to open internet &mdash; no password, no encryption&nbsp;<span class="ticker-src">State of Surveillance</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.washingtonpost.com/business/2025/11/24/border-patrol-surveillance-license-plate-readers-immigration/3478c046-c972-11f0-ac2a-e98510180900_story.html" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Lawmakers question legality of Border Patrol license plate surveillance program&nbsp;<span class="ticker-src">Washington Post</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/city-learns-flock-accessed-cameras-in-childrens-gymnastics-room-as-a-sales-pitch-demo-renews-contract-anyway/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Flock employees watched children&rsquo;s gymnastics room via police cameras as a sales demo&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.9news.com/article/news/local/rime-flock-cam-pulled-over/73-e3f65018-32a5-4bb0-a4ac-26fb24db9a15" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Colorado man pulled over repeatedly due to Flock database error he cannot get removed&nbsp;<span class="ticker-src">9NEWS NBC Denver</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/congress-launches-investigation-into-flock-after-404-media-reporting/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Congress launches formal investigation into Flock Safety over ICE and abortion surveillance&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.washingtonpost.com/politics/2025/06/12/abortion-access-immigration-license-plate-readers-surveillance/a5213f12-47b8-11f0-9210-87ee82efcc80_story.html" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Illinois officials investigate after Flock data shared with Texas sheriff hunting abortion patient&nbsp;<span class="ticker-src">Washington Post</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.nbcnews.com/tech/tech-news/flock-police-cameras-scan-billions-month-sparking-protests-rcna230037" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Flock cameras scan 20 billion plates per month as communities push back nationwide&nbsp;<span class="ticker-src">NBC News</span></a><span class="ticker-sep">&#x2f;</span>
+          <!-- duplicate for seamless loop -->
+          <a href="https://unicornriot.ninja/2026/alprs-and-minneapolis-growing-discriminatory-surveillance-dragnet/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;MINNEAPOLIS: ALPR cameras concentrated in Black neighborhoods &mdash; not where crime is highest&nbsp;<span class="ticker-src">Unicorn Riot</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/a-texas-cop-searched-license-plate-cameras-nationwide-for-a-woman-who-got-an-abortion/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Texas cop searched 83,000 Flock cameras to find woman who had abortion&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://ij.org/police-have-reportedly-used-license-plate-readers-to-stalk-romantic-interests-at-least-14-times-in-recent-years/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Officers used Flock to stalk romantic partners in 14 documented cases&nbsp;<span class="ticker-src">Institute for Justice</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://stateofsurveillance.org/news/flock-safety-cameras-exposed-no-password-2026/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;67 Flock cameras streaming live to open internet &mdash; no password, no encryption&nbsp;<span class="ticker-src">State of Surveillance</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.washingtonpost.com/business/2025/11/24/border-patrol-surveillance-license-plate-readers-immigration/3478c046-c972-11f0-ac2a-e98510180900_story.html" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Lawmakers question legality of Border Patrol license plate surveillance program&nbsp;<span class="ticker-src">Washington Post</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/city-learns-flock-accessed-cameras-in-childrens-gymnastics-room-as-a-sales-pitch-demo-renews-contract-anyway/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Flock employees watched children&rsquo;s gymnastics room via police cameras as a sales demo&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.9news.com/article/news/local/rime-flock-cam-pulled-over/73-e3f65018-32a5-4bb0-a4ac-26fb24db9a15" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Colorado man pulled over repeatedly due to Flock database error he cannot get removed&nbsp;<span class="ticker-src">9NEWS NBC Denver</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.404media.co/congress-launches-investigation-into-flock-after-404-media-reporting/" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Congress launches formal investigation into Flock Safety over ICE and abortion surveillance&nbsp;<span class="ticker-src">404 Media</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.washingtonpost.com/politics/2025/06/12/abortion-access-immigration-license-plate-readers-surveillance/a5213f12-47b8-11f0-9210-87ee82efcc80_story.html" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Illinois officials investigate after Flock data shared with Texas sheriff hunting abortion patient&nbsp;<span class="ticker-src">Washington Post</span></a><span class="ticker-sep">&#x2f;</span>
+          <a href="https://www.nbcnews.com/tech/tech-news/flock-police-cameras-scan-billions-month-sparking-protests-rcna230037" target="_blank" class="ticker-news-item">&#x25cf;&nbsp;Flock cameras scan 20 billion plates per month as communities push back nationwide&nbsp;<span class="ticker-src">NBC News</span></a><span class="ticker-sep">&#x2f;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="surveillance-grid"></div>
+  <div class="ticker"><span class="ticker-inner">&nbsp;&nbsp;&nbsp;MINNEAPOLIS IS WATCHING &nbsp;●&nbsp; YOUR MOVEMENTS ARE BEING RECORDED &nbsp;●&nbsp; EVERY PLATE. EVERY TRIP. EVERY DAY. &nbsp;●&nbsp; FLOCK SAFETY CAMERAS NOW OPERATING IN YOUR NEIGHBORHOOD &nbsp;●&nbsp; YOUR LOCATION HISTORY IS BEING STORED &nbsp;●&nbsp; DEMAND ACCOUNTABILITY FROM YOUR CITY COUNCIL &nbsp;●&nbsp; MINNEAPOLIS IS WATCHING &nbsp;●&nbsp; YOUR MOVEMENTS ARE BEING RECORDED &nbsp;●&nbsp; EVERY PLATE. EVERY TRIP. EVERY DAY. &nbsp;●&nbsp; FLOCK SAFETY CAMERAS NOW OPERATING IN YOUR NEIGHBORHOOD &nbsp;●&nbsp;</span></div>
+  <div class="header-content">
+    <div class="eyebrow">Minneapolis, MN — Public Alert</div>
+    <h1 class="hero-headline">They Know<br><span class="red">Where You've Been.</span></h1>
+    <div class="plate-display">
+      <span id="plate">MNX 482</span>
+      <span class="blink">▮</span>
+      <span style="color:#666;font-size:0.7em;letter-spacing:0.05em;">MATCH FOUND — LOGGED 14:32:07</span>
+    </div>
+    <p class="hero-sub">Minneapolis has deployed a city-wide network of Flock Safety license plate readers — automated surveillance cameras that track and record every vehicle's movements, storing your location history without a warrant, without probable cause, and without meaningful public oversight.</p>
+    <div class="hero-cta">
+      <a href="#action" class="btn-primary">Contact City Council Now →</a>
+      <a href="#dangers" class="btn-ghost">Learn the Dangers</a>
+    </div>
+  </div>
+  <div class="camera-count">
+    <div class="num">34</div>
+    <div class="label">Cameras<br>Deployed</div>
+  </div>
+</header>
+
+<!-- WHAT IS FLOCK -->
+<section id="what">
+  <div class="container">
+    <div class="what-grid">
+      <div class="what-text reveal">
+        <div class="section-label">What Is Flock Safety</div>
+        <h2 class="section-title">A Private Company<br>Running Your City's Spy Network</h2>
+        <p>Flock Safety is an Atlanta-based private surveillance company that sells license plate reader (LPR) systems to cities and police departments across the country. Their cameras capture <strong>every vehicle that passes</strong> — recording the plate number, make, color, and distinct features, then cross-referencing against databases in real time. Flock is the first to build a true nationwide mass-surveillance system out of its customers' cameras.<sup><a href="#src-1">[1]</a></sup></p>
+        <p>Minneapolis has contracted with Flock to deploy cameras throughout the city. Every time you drive past one, <strong>your location is logged</strong> — creating a detailed map of your daily life. That includes where you worship, receive medical care, and who you visit.<sup><a href="#src-3">[2]</a></sup></p>
+        <p>But Flock doesn't just record your plate. It builds a <strong>unique vehicle fingerprint</strong> for every car it scans — capturing make, model, color, body type, and physical features like roof racks, bumper damage, and decals. This means vehicles can be tracked and matched even when plates are obscured, and profiles persist across the entire Flock network nationwide.</p>
+        <p>This happens automatically. Continuously. Without your consent. And with minimal oversight from the public or the elected officials who are supposed to represent you.</p>
+      </div>
+      <div class="camera-diagram reveal">
+        <div class="cam-line"><span class="cam-key">DEVICE_TYPE  </span><span class="cam-val cam-highlight">Flock Safety Falcon</span></div>
+        <div class="cam-line"><span class="cam-key">LOCATION     </span><span class="cam-val">38th St &amp; 4th Ave S, MPLS</span></div>
+        <div class="cam-line"><span class="cam-key">STATUS       </span><span class="cam-val cam-alert">ACTIVE — RECORDING</span></div>
+        <div class="cam-line"><span class="cam-key">TIMESTAMP    </span><span class="cam-val" id="clock">--:--:--</span></div>
+        <div class="cam-line">&nbsp;</div>
+        <div class="cam-line"><span class="cam-key">PLATE        </span><span class="cam-val">ABJ 224</span></div>
+        <div class="cam-line"><span class="cam-key">STATE        </span><span class="cam-val">MN</span></div>
+        <div class="cam-line"><span class="cam-key">MAKE         </span><span class="cam-val">TOYOTA</span></div>
+        <div class="cam-line"><span class="cam-key">COLOR        </span><span class="cam-val">SILVER</span></div>
+        <div class="cam-line"><span class="cam-key">BODY_TYPE    </span><span class="cam-val">SEDAN</span></div>
+        <div class="cam-line"><span class="cam-key">ROOF_RACK    </span><span class="cam-val">DETECTED</span></div>
+        <div class="cam-line"><span class="cam-key">VEH_FINGERPRINT </span><span class="cam-val cam-alert">97.8% MATCH</span></div>
+        <div class="cam-line">&nbsp;</div>
+        <div class="cam-line"><span class="cam-key">FLAGGED      </span><span class="cam-val cam-alert">DATABASE MATCH</span></div>
+        <div class="cam-line"><span class="cam-key">ALERT_SENT   </span><span class="cam-val cam-alert">MPD, HENNEPIN CTY, FBI</span></div>
+        <div class="cam-line">&nbsp;</div>
+        <div class="cam-line"><span class="cam-key">DATA_STORED  </span><span class="cam-val">30 DAYS+</span></div>
+        <div class="cam-line"><span class="cam-key">SHARED_WITH  </span><span class="cam-val cam-alert">AGENCIES NATIONWIDE</span></div>
+      </div>
+    </div>
+    <div class="alert-box reveal" style="margin-top:3rem;">
+      <strong>Flock is not just local.</strong> Every new customer that installs Flock cameras extends a centralized mass surveillance network — giving even small-town police access to a sweeping nationwide driver-surveillance tool, and allowing large agencies like federal departments to reach into data from any city in the network, including Minneapolis.<sup><a href="#src-1">[1]</a></sup>
+    </div>
+  </div>
+</section>
+
+<!-- DANGERS -->
+<section id="dangers">
+  <div class="container">
+    <div class="section-label reveal">The Dangers</div>
+    <h2 class="section-title reveal">Six Reasons<br>Flock Must Go</h2>
+    <div class="dangers-grid">
+
+      <div class="danger-card reveal">
+        <div class="danger-num">01</div>
+        <div class="danger-title">Mass Surveillance Without Consent</div>
+        <p>LPR systems track law-abiding citizens with no suspicion of wrongdoing — collecting data on everyone to find information about a few. The ACLU calls this "comprehensive records of everybody's comings and goings" and says "the government should not be tracking us unless it has individualized suspicion that we're engaged in wrongdoing."<sup><a href="#src-1">[1]</a></sup></p>
+      </div>
+
+      <div class="danger-card reveal">
+        <div class="danger-num">02</div>
+        <div class="danger-title">Racial Bias &amp; Discriminatory Targeting</div>
+        <p>In Minneapolis, a Unicorn Riot investigation found ALPR cameras concentrated in North Minneapolis neighborhoods with large Black populations — not where crime rates are actually highest. Near North (65% Black) has more cameras than Whittier, despite Whittier having a higher auto theft rate. The same pattern holds nationally: in Tulsa, Flock cameras were placed exclusively in majority Black and Hispanic neighborhoods, with none in wealthier white areas.<sup><a href="#src-2">[2]</a></sup> In Louisville, half of all people charged in LPR-related cases in 2025 were Black.<sup><a href="#src-4">[4]</a></sup></p>
+      </div>
+
+      <div class="danger-card reveal">
+        <div class="danger-num">03</div>
+        <div class="danger-title">Data Shared Across the Nation — Without Your Knowledge</div>
+        <p>In Mountain View, California, it was discovered that Flock had enabled out-of-state agencies to access local camera data without the city's knowledge or permission. The police chief called it "frankly unacceptable" and suspended the entire Flock system. A CBS News investigation found more than a dozen instances of wrongful stops due to ALPR errors.<sup><a href="#src-5">[5]</a></sup></p>
+      </div>
+
+      <div class="danger-card reveal">
+        <div class="danger-num">04</div>
+        <div class="danger-title">No Warrant Required</div>
+        <p>Police can access months of your location history without a warrant — where you worship, who you visit, what medical care you seek. A Virginia lawsuit is rightly claiming that LPR readers at a certain density violate the Fourth Amendment by routinely tracking people not suspected of wrongdoing.<sup><a href="#src-6">[6]</a></sup></p>
+      </div>
+
+      <div class="danger-card reveal">
+        <div class="danger-num">05</div>
+        <div class="danger-title">Used by ICE for Immigration Enforcement</div>
+        <p>Flock data is being used by ICE to carry out deportations nationwide. Audit logs from Denver showed more than 1,400 Flock searches had been conducted for ICE in a single year. Local officers have been asked to run searches on ICE's behalf — allowing federal immigration authorities to bypass sanctuary protections.<sup><a href="#src-7">[7]</a></sup> Flock's own CEO acknowledged the technology could be used for immigration enforcement "if it was legal in a state."<sup><a href="#src-6">[6]</a></sup></p>
+      </div>
+
+      <div class="danger-card reveal">
+        <div class="danger-num">06</div>
+        <div class="danger-title">Expanding Into AI-Powered Surveillance</div>
+        <p>Flock is now moving from still photos to live video feeds with AI-powered natural language search, letting police search footage using descriptions of vehicles, occupants, and bystanders. The company is also integrating with commercial data brokers to let police "jump from LPR to person" — linking plate scans to personal profiles without any additional warrant or oversight.<sup><a href="#src-8">[8]</a></sup></p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="stat-num">34</div>
+        <div class="stat-label">Flock cameras deployed<br>in Minneapolis</div>
+        <div class="stat-source">City of Minneapolis</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">20B+</div>
+        <div class="stat-label">License plates scanned<br>by Flock per month</div>
+        <div class="stat-source">Flock Safety</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">1,400+</div>
+        <div class="stat-label">ICE searches of Flock data<br>in Denver in one year</div>
+        <div class="stat-source">ACLU of Colorado audit [7]</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">50%</div>
+        <div class="stat-label">Of Louisville LPR charges<br>involved Black residents</div>
+        <div class="stat-source">KY Investigative Reporting [4]</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Days your location data<br>is stored by default</div>
+        <div class="stat-source">Flock Safety contract terms</div>
+      </div>
+      <div class="reveal">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Documented wrongful stops<br>from ALPR errors</div>
+        <div class="stat-source">CBS News Investigation [5]</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS TARGETED -->
+<section id="targeted">
+  <div class="container">
+    <div class="section-label reveal">Who's Targeted</div>
+    <h2 class="section-title reveal">Surveillance<br>Doesn't Protect Everyone Equally</h2>
+    <p class="targeted-intro reveal">Automated license plate readers are not deployed equally, and their risks are not shared equally. While sold as a public safety tool, these systems have been repeatedly documented as disproportionately harming vulnerable communities.</p>
+    <div class="community-list">
+
+      <div class="community-item reveal">
+        <h3>Black &amp; Brown Communities</h3>
+        <p>Research consistently shows Flock cameras concentrated in Black and brown neighborhoods. This creates a self-reinforcing cycle: surveillance generates crime data, which justifies more surveillance. The ACLU calls it a direct exacerbation of systemic racism in the criminal legal system.<sup><a href="#src-2">[2]</a></sup></p>
+      </div>
+
+      <div class="community-item reveal">
+        <h3>Immigrants &amp; Undocumented Residents</h3>
+        <p>Flock data is being used by ICE for immigration enforcement. Local officers have been asked to run plate searches on behalf of ICE, sidestepping sanctuary policies. Syracuse, NY canceled its Flock contract specifically to protect its large immigrant community.<sup><a href="#src-7">[7]</a></sup></p>
+      </div>
+
+      <div class="community-item reveal">
+        <h3>Activists &amp; Protesters</h3>
+        <p>People exercising First Amendment rights — at demonstrations, organizing meetings, or advocacy events — are having their presence documented and stored. When people know they're being tracked, they change their behavior. The ACLU's white paper identifies this chilling effect as one of the gravest dangers of mass LPR networks.<sup><a href="#src-1">[1]</a></sup></p>
+      </div>
+
+      <div class="community-item reveal">
+        <h3>People Seeking Healthcare</h3>
+        <p>Connecticut researchers documented that local driver location data was accessed by out-of-state agencies in states that criminalize abortion and gender-affirming care — despite local shield laws. Your drive to a clinic in Minnesota could generate a data trail accessible in states where that care is criminalized.<sup><a href="#src-9">[9]</a></sup></p>
+      </div>
+
+      <div class="community-item reveal">
+        <h3>Domestic Violence Survivors</h3>
+        <p>Survivors need privacy. The ACLU specifically calls for ALPR rules preventing the technology from being used by abusive partners to locate vulnerable people. As long as this data is stored and accessible across thousands of agencies, no policy guarantee can truly protect survivors.<sup><a href="#src-10">[10]</a></sup></p>
+      </div>
+
+      <div class="community-item reveal">
+        <h3>Everyone Else</h3>
+        <p>The premise that "you have nothing to hide" misunderstands what privacy is for. Privacy is not about guilt — it is a prerequisite of freedom. Every person in Minneapolis is affected by this system. The question is not whether you have done anything wrong. The question is whether the government should be tracking your every move.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TAKE ACTION -->
+<section id="action">
+  <div class="container">
+    <div class="section-label reveal">Take Action</div>
+    <h2 class="section-title reveal">Tell the City Council:<br><span style="color:var(--red)">End Flock Now.</span></h2>
+    <p class="action-intro reveal">The Minneapolis City Council can terminate existing Flock contracts, block new deployments, and refuse renewals. Your voice matters — constituent calls and emails are the most effective driver of local policy. Cities including Denver, Syracuse, and others have already terminated their Flock contracts after resident pressure.<sup><a href="#src-7">[7]</a></sup></p>
+
+    <div class="section-label reveal" style="margin-bottom:1rem;">Minneapolis City Council Members (Updated Feb. 2026)</div>
+    <div class="council-grid reveal">
+      <div class="council-card"><div class="ward">Ward 1</div><div class="council-name">Elliott Payne</div><a href="mailto:ward1@minneapolismn.gov" class="council-email">ward1@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 2</div><div class="council-name">Robin Wonsley</div><a href="mailto:ward2@minneapolismn.gov" class="council-email">ward2@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 3</div><div class="council-name">Michael Rainville</div><a href="mailto:ward3@minneapolismn.gov" class="council-email">ward3@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 4</div><div class="council-name">LaTrisha Vetaw</div><a href="mailto:ward4@minneapolismn.gov" class="council-email">ward4@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 5</div><div class="council-name">Pearll Warren</div><a href="mailto:ward5@minneapolismn.gov" class="council-email">ward5@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 6</div><div class="council-name">Jamal Osman</div><a href="mailto:ward6@minneapolismn.gov" class="council-email">ward6@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 7</div><div class="council-name">Elizabeth Shaffer</div><a href="mailto:ward7@minneapolismn.gov" class="council-email">ward7@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 8</div><div class="council-name">Soren Stevenson</div><a href="mailto:ward8@minneapolismn.gov" class="council-email">ward8@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 9</div><div class="council-name">Jason Chavez</div><a href="mailto:ward9@minneapolismn.gov" class="council-email">ward9@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 10</div><div class="council-name">Aisha Chughtai</div><a href="mailto:ward10@minneapolismn.gov" class="council-email">ward10@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 11</div><div class="council-name">Jamison Whiting</div><a href="mailto:ward11@minneapolismn.gov" class="council-email">ward11@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 12</div><div class="council-name">Aurin Chowdhury</div><a href="mailto:ward12@minneapolismn.gov" class="council-email">ward12@minneapolismn.gov</a></div>
+      <div class="council-card"><div class="ward">Ward 13</div><div class="council-name">Linea Palmisano</div><a href="mailto:ward13@minneapolismn.gov" class="council-email">ward13@minneapolismn.gov</a></div>
+    </div>
+
+    <div class="mayor-box reveal">
+      <div class="mayor-info">
+        <div class="title">Mayor of Minneapolis</div>
+        <h3>Jacob Frey</h3>
+        <a href="mailto:jacob.frey@minneapolismn.gov">jacob.frey@minneapolismn.gov</a>
+        <a href="tel:6126733000">(612) 673-3000</a>
+        <a href="https://www.minneapolismn.gov/mayor" target="_blank">minneapolismn.gov/mayor ↗</a>
+      </div>
+      <div style="flex:1;min-width:240px;">
+        <p style="font-size:0.92rem;line-height:1.9;color:#999;">Contact Mayor Frey directly — especially by phone. When Denver's City Council voted to terminate its Flock contract, the mayor unilaterally extended it anyway. That's why sustained pressure on both the Council and the Mayor's office matters.<sup><a href="#src-7">[7]</a></sup></p>
+      </div>
+    </div>
+
+    <div style="margin-top:4rem;">
+      <div class="section-label reveal">Template Email</div>
+      <h3 class="reveal" style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--cream);margin-bottom:0.5rem;">Copy, Personalize &amp; Send</h3>
+      <p class="reveal" style="color:#999;font-size:0.9rem;margin-bottom:1.5rem;">This email makes three specific demands: no new cameras, no contract renewals, and active cancellation of existing contracts.</p>
+
+      <div class="email-template reveal">
+        <button class="copy-btn" onclick="copyEmail()">COPY</button>
+<span style="color:var(--text-muted)">Subject: End Minneapolis's Contract with Flock Safety — Three Urgent Requests</span>
+
+Dear Council Member [Name],
+
+My name is [Your Name], and I am a resident of Ward [#] in Minneapolis.
+
+I am writing to urgently request your action on the City's use of Flock Safety
+automated license plate reader (ALPR) cameras. I have three specific requests:
+
+  1. DO NOT INSTALL any additional Flock Safety cameras or devices in
+     Minneapolis, effective immediately.
+
+  2. DO NOT RENEW any existing contracts with Flock Safety when they
+     come up for expiration.
+
+  3. ACTIVELY WORK to cancel the city's current Flock Safety contracts
+     and arrange for the removal of all existing devices.
+
+Flock Safety's system conducts mass surveillance of all Minneapolis residents
+— logging every vehicle's movements without a warrant, without probable cause,
+and without meaningful public oversight. Research has documented that this
+technology disproportionately harms Black and brown residents, immigrants,
+people seeking healthcare, activists, and other vulnerable communities.
+
+Flock data is being used by ICE for immigration enforcement. Audit logs have
+shown that out-of-state agencies — including those in states that criminalize
+abortion and gender-affirming care — have accessed local ALPR data, bypassing
+local shield laws. A CBS News investigation documented more than a dozen
+wrongful stops caused by ALPR errors nationwide.
+
+Cities including Denver, Syracuse, and others have terminated their Flock
+contracts after constituent pressure. Minneapolis should do the same.
+
+I ask that you take all three actions listed above. I am watching this issue
+closely and will share your response with my neighbors and fellow residents.
+
+Sincerely,
+[Your Name]
+[Your Address, Minneapolis, MN]
+[Your Phone / Email]
+      </div>
+    </div>
+
+    <div style="margin-top:3rem;padding:2rem;border:1px solid var(--border);background:#0f0f0f;" class="reveal">
+      <div class="section-label" style="margin-bottom:1rem;">Other Ways to Help</div>
+      <p style="color:#bbb;font-size:0.95rem;line-height:2;">
+        <strong style="color:var(--cream);">Attend a City Council meeting.</strong> Public comment is your right. Speak on the record at <a href="https://www.minneapolismn.gov/government/city-council/meetings/public-comment/" target="_blank" style="color:var(--red);">minneapolismn.gov ↗</a><br>
+        <strong style="color:var(--cream);">Share this page.</strong> The more residents who know, the harder it becomes to ignore.<br>
+        <strong style="color:var(--cream);">Contact the ACLU of Minnesota.</strong> <a href="https://www.aclu-mn.org" target="_blank" style="color:var(--red);">aclu-mn.org ↗</a> — they track surveillance technology and can connect you with legal resources.<br>
+        <strong style="color:var(--cream);">File a data request.</strong> Request records on how LPR data has been used in Minneapolis at <a href="https://www.minneapolismn.gov/government/government-data/request-public-data/" target="_blank" style="color:var(--red);">minneapolismn.gov ↗</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- IN THE NEWS -->
+<section id="news" style="background:var(--mid);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label reveal">In The News</div>
+    <h2 class="section-title reveal">Documented Abuses<br>From Around the Country</h2>
+    <p class="reveal" style="color:#bbb;font-size:1.05rem;line-height:1.9;max-width:700px;margin-bottom:3rem;">These aren&rsquo;t hypothetical risks. Flock cameras have already been used to stalk domestic partners, hunt abortion seekers, assist ICE deportations, and flag innocent people as criminals &mdash; while Flock&rsquo;s own employees watched children through police camera feeds.</p>
+
+    <div style="display:grid;gap:1px;background:var(--border);border:1px solid var(--border);">
+
+      <div style="background:var(--dark);padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Officer Stalking</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">Police Have Reportedly Used License Plate Readers to Stalk Romantic Interests at Least 14 Times in Recent Years</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">A review of media reports identified at least 14 cases nationwide of officers abusing Flock data to surveil romantic partners &mdash; current, former, and strangers. Cases span California, Wisconsin, Tennessee, Idaho, Florida, and more. Most officers were criminally charged and lost their jobs. Nearly all cases came to light only after victims reported the behavior &mdash; not through any internal Flock safeguard.</p>
+        <a href="https://ij.org/police-have-reportedly-used-license-plate-readers-to-stalk-romantic-interests-at-least-14-times-in-recent-years/" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">Institute for Justice &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Apr. 2026</span>
+      </div>
+
+      <div style="background:var(--dark);padding:2rem 2.5rem;border-left:4px solid var(--red);" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:0.5rem;">Minneapolis &mdash; Local Investigation</div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--green);text-transform:uppercase;margin-bottom:1rem;">&#x25cf; Minneapolis-Specific Data</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">ALPRs and Minneapolis&rsquo; Growing Discriminatory Surveillance Dragnet</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">A Unicorn Riot investigation using MPD public records found that ALPR cameras in Minneapolis are concentrated in Black neighborhoods &mdash; not where crime rates are actually highest. MPD&rsquo;s 30 ALPR intersections tracked <strong style="color:var(--cream);">31 million vehicles</strong> in just two months. Of those, only 12,446 were stolen &mdash; a hit rate of <strong style="color:var(--cream);">0.039%</strong>. The investigation compared Near North (65% Black population, 5 ALPR intersections, auto theft rate 478/100k residents) with Whittier (26% Black, twice the population, higher crime rate of 931/100k &mdash; but only 3 ALPR intersections). The data shows cameras are placed where Black people live, not where theft is highest. &ldquo;Under the auspices of an objective AI tool,&rdquo; said DeFlock researcher Ed Vogel, they are &ldquo;just going to reinforce the racist and classist ways in which police operate.&rdquo;</p>
+        <a href="https://unicornriot.ninja/2026/alprs-and-minneapolis-growing-discriminatory-surveillance-dragnet/" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">Unicorn Riot &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Apr. 14, 2026</span>
+      </div>
+
+      <div style="background:#0d0d0d;padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Immigration Enforcement</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">Lawmakers Question Legality of Border Patrol License Plate Reader Program</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">Senate Democrats called Flock&rsquo;s data-sharing arrangement with Border Patrol an &ldquo;invasive surveillance network&rdquo; that may violate the Constitution. Sen. Ed Markey found CBP had access to Flock data from departments across the country &mdash; in many cases without those departments&rsquo; knowledge. Audit logs from Denver alone showed over 1,400 Flock searches conducted on behalf of ICE in a single year.</p>
+        <a href="https://www.washingtonpost.com/business/2025/11/24/border-patrol-surveillance-license-plate-readers-immigration/3478c046-c972-11f0-ac2a-e98510180900_story.html" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">The Washington Post &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Nov. 2025</span>
+      </div>
+
+      <div style="background:var(--dark);padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Abortion Surveillance</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">A Texas Cop Searched License Plate Cameras Nationwide for a Woman Who Got an Abortion</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:0.5rem;">A Texas deputy searched more than 83,000 Flock cameras across the country &mdash; including in states where abortion is legal &mdash; logging the reason as &ldquo;had an abortion, search for female.&rdquo; Flock and the sheriff claimed it was a welfare check. Court records later obtained by the EFF revealed officers had opened a &ldquo;death investigation&rdquo; into the fetus and consulted prosecutors about charging the woman with a crime.</p>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">Illinois officials found that a Chicago-area police department had illegally shared its Flock data with the Texas sheriff, violating state shield laws. Congress launched a formal investigation into Flock.</p>
+        <a href="https://www.404media.co/a-texas-cop-searched-license-plate-cameras-nationwide-for-a-woman-who-got-an-abortion/" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">404 Media &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">May 2025</span>
+        &nbsp;&nbsp;
+        <a href="https://www.washingtonpost.com/politics/2025/06/12/abortion-access-immigration-license-plate-readers-surveillance/a5213f12-47b8-11f0-9210-87ee82efcc80_story.html" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">Washington Post &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Jun. 2025</span>
+      </div>
+
+      <div style="background:#0d0d0d;padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Wrongful Stops / Database Errors</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">He Didn&rsquo;t Commit a Crime, But Flock Cam Alerts Keep Getting Him Pulled Over</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:0.5rem;">Kyle Dausman, a Colorado man, is pulled over every time he passes a Flock camera &mdash; anywhere in the state. A court data entry error confused his plate with a wanted man&rsquo;s. He says he can no longer drive comfortably and fears for his safety. After the story aired, two more Coloradans came forward with identical situations, including a 76-year-old grandmother surrounded by deputies in a parking lot.</p>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">Business Insider found similar errors nationwide have resulted in people stopped at gunpoint, sent to jail, and mauled by police dogs &mdash; all due to Flock hotlist mistakes that no internal process catches.</p>
+        <a href="https://www.9news.com/article/news/local/rime-flock-cam-pulled-over/73-e3f65018-32a5-4bb0-a4ac-26fb24db9a15" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">9NEWS (NBC Denver) &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Apr. 2026</span>
+        &nbsp;&nbsp;
+        <a href="https://www.9news.com/article/news/local/coloradan-stopped-by-police-data-errors-flock-alerts/73-593a3772-f43d-46b1-8744-af888b9bd7f2" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">9NEWS Follow-Up &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">May 2026</span>
+      </div>
+
+      <div style="background:var(--dark);padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Corporate Access to Children&rsquo;s Spaces</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">City Learns Flock Accessed Cameras in Children&rsquo;s Gymnastics Room as a Sales Pitch Demo, Renews Contract Anyway</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">Flock Safety sales employees used a police department&rsquo;s camera access to watch live feeds of a children&rsquo;s gymnastics class, a pool, and a Jewish community center in Dunwoody, Georgia &mdash; as sales demonstrations to other police departments. The access was discovered only through a resident&rsquo;s public records request. Flock&rsquo;s CEO privately apologized, admitting &ldquo;poor judgement.&rdquo; The Dunwoody City Council then voted to expand its contract with Flock anyway.</p>
+        <a href="https://www.404media.co/city-learns-flock-accessed-cameras-in-childrens-gymnastics-room-as-a-sales-pitch-demo-renews-contract-anyway/" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">404 Media &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">May 2026</span>
+      </div>
+
+      <div style="background:#0d0d0d;padding:2rem 2.5rem;" class="reveal">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;letter-spacing:0.25em;color:var(--red);text-transform:uppercase;margin-bottom:1rem;">Cybersecurity Breach</div>
+        <h3 style="font-family:'IBM Plex Mono',monospace;font-size:0.95rem;font-weight:600;color:var(--cream);margin-bottom:0.75rem;line-height:1.5;">Flock Safety Cameras Exposed: No Password Required to Watch Police Surveillance Feeds</h3>
+        <p style="font-size:0.88rem;line-height:1.8;color:#999;margin-bottom:1rem;">Security researchers found at least 67 Flock cameras streaming live to the open internet with no username, no password, and no encryption &mdash; viewable by anyone, including a full month of archived footage. Separately, Sen. Ron Wyden revealed that at least 35 Flock customer accounts had credentials stolen by hackers and that Flock login credentials were being sold on Russian cybercrime forums. Wyden called for an FTC investigation into Flock&rsquo;s security practices.</p>
+        <a href="https://stateofsurveillance.org/news/flock-safety-cameras-exposed-no-password-2026/" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:0.7rem;color:var(--red);text-decoration:none;letter-spacing:0.05em;">State of Surveillance &rarr;</a>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:var(--text-muted);margin-left:1rem;">Jan. 2026</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources" style="padding:4rem 2rem;background:#000;border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label reveal">Sources &amp; Citations</div>
+    <h2 class="reveal" style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;color:var(--cream);margin-bottom:2rem;">Research Behind<br>This Site</h2>
+    <ol class="sources-list reveal">
+      <li id="src-1">ACLU: "How to Pump the Brakes on Your Police Department's Use of Flock's Mass Surveillance License Plate Readers" (Feb. 2023) — <a href="https://www.aclu.org/news/privacy-technology/how-to-pump-the-brakes-on-your-police-departments-use-of-flocks-mass-surveillance-license-plate-readers" target="_blank">aclu.org</a></li>
+      <li id="src-2">ACLU of Oklahoma: "The Threat to Privacy and Civil Liberties with Automatic License Plate Readers" (Dec. 2023) — <a href="https://www.acluok.org/news/threat-privacy-and-civil-liberties-automatic-license-plate-readers/" target="_blank">acluok.org</a></li>
+      <li id="src-3">ACLU of Iowa / WVIK: "ACLU raises concerns over Quad Cities license plate readers" (Feb. 2026) — <a href="https://www.wvik.org/wvik-top-stories/2026-02-03/aclu-raises-concerns-over-quad-cities-license-plate-readers-in-public-information-session" target="_blank">wvik.org</a></li>
+      <li id="src-4">Kentucky Center for Investigative Reporting / WKMS: "In Louisville, half the people charged last year in license plate reader cases were Black" (Jan. 2026) — <a href="https://www.wkms.org/criminal-justice/2026-01-27/in-louisville-half-the-people-charged-last-year-in-license-plate-reader-cases-were-black" target="_blank">wkms.org</a></li>
+      <li id="src-5">CBS News Bay Area: "Northern California police chief suspends use of ALPR cameras after outside agencies access data" (Jan. 2026) — <a href="https://www.cbsnews.com/sanfrancisco/news/mountain-view-alpr-cameras-use-suspended-automated-license-plate-reader/" target="_blank">cbsnews.com</a></li>
+      <li id="src-6">ACLU: "I'm Hearing About More Pushback Against Flock, Fueled by Concern Over Anti-Immigrant Uses" (2025) — <a href="https://www.aclu.org/news/privacy-technology/flock-pushback" target="_blank">aclu.org</a></li>
+      <li id="src-7">Stateline: "Worried about surveillance, states enact privacy laws and restrict license plate readers" (Jan. 2026) — <a href="https://stateline.org/2026/01/08/worried-about-surveillance-states-enact-privacy-laws-and-restrict-license-plate-readers/" target="_blank">stateline.org</a></li>
+      <li id="src-8">ACLU: "Flock's Aggressive Expansions Go Far Beyond Simple Driver Surveillance" (2025) — <a href="https://www.aclu.org/news/privacy-technology/flock-roundup" target="_blank">aclu.org</a></li>
+      <li id="src-9">ACLU of Connecticut: "ACLU and Allies Demand Statewide Pause on Automatic License Plate Readers" (Nov. 2025) — <a href="https://www.acluct.org/press-releases/automatic-license-plate-readers-moratorium/" target="_blank">acluct.org</a></li>
+      <li id="src-10">ACLU: "License Plate Readings Shouldn't Be Public Data" — <a href="https://www.aclu.org/news/privacy-technology/alpr-as-public-data" target="_blank">aclu.org</a></li>
+      <li>Minneapolis City Council Members Directory (verified Feb. 2026) — <a href="https://www.minneapolismn.gov/government/city-council/members/" target="_blank">minneapolismn.gov</a></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>This is a non-commercial public awareness site. Not affiliated with any political party or campaign.</p>
+  <p>Council member information sourced from <a href="https://www.minneapolismn.gov/government/city-council/members/" target="_blank" style="color:var(--red);">minneapolismn.gov</a> (verified Feb. 2026). Verify current contact details before emailing.</p>
+  <p style="margin-top:1.5rem;color:#444;">Privacy is not a privilege. It is a right.</p>
+</footer>
+
+<script>
+  function updateClock(){const now=new Date();const t=now.toTimeString().split(' ')[0];const el=document.getElementById('clock');if(el)el.textContent=t;}
+  setInterval(updateClock,1000);updateClock();
+  const plates=['MNX 482','ABJ 334','KDL 992','FRM 118','TPZ 664','WQN 550','LBK 883','CJV 229'];
+  let pi=0;
+  setInterval(()=>{pi=(pi+1)%plates.length;const el=document.getElementById('plate');if(el)el.textContent=plates[pi];},3000);
+  const revealEls=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver((entries)=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);}});},{threshold:0.08,rootMargin:'0px 0px -50px 0px'});
+  revealEls.forEach(el=>observer.observe(el));
+  function copyEmail(){const template=document.querySelector('.email-template');const text=template.innerText.replace('COPY\n','').trim();navigator.clipboard.writeText(text).then(()=>{const btn=document.querySelector('.copy-btn');btn.textContent='COPIED ✓';btn.style.background='var(--red)';setTimeout(()=>{btn.textContent='COPY';btn.style.background='';},2000);});}
+</script>
+</body>
+</html>
